@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>        
+        <title>My Contacts</title> 
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <script type="text/javascript">
+            function manualReset() {
+                $('input.fName').val("");
+                $('input.lName').val("");
+                $('textarea.desc').val("");
+            }
+
+            function flipCard(param) {
+                
+                // change h1 element
+                var fromHStr = $("#" + $(param).attr('id') + " h1").text();
+                var toHStr = $("#" + $(param).attr('id') + " h1").attr('data-alt');              
+                $("#" + $(param).attr('id') + " h1").text(toHStr);
+                $("#" + $(param).attr('id') + " h1").attr('data-alt', fromHStr);
+                
+                // change p element
+                var fromPStr = "";
+                var toPStr = "";
+
+                fromPStr = $("#" + $(param).attr('id') + " p").text();
+                toPStr = $("#" + $(param).attr('id') + " p").attr('data-alt');
+
+                //      $("#" + $(param).attr('id') + " p").text("");
+                $("#" + $(param).attr('id') + " p").text(toPStr);
+                //$("#" + $(param).attr('id') + " p").replaceWith(toPStr);
+                $("#" + $(param).attr('id') + " p").attr('data-alt', fromPStr);
+
+            }
+
+            $(document).ready(function() {
+                $('.addUser').click(function(){
+                    
+                    if ($('input.lName').val() == "" && $('input.fName').val() == "") {
+                        alert("enter name")
+                    } else {
+                    // get unique counter for id
+                        var count = parseInt($("body").attr('data-counter'));
+                        count = count + 1;
+
+                        // increment counter
+                        $("body").attr('data-counter', count)
+                        
+                        // create html
+                        var appStr = "<div><button class=\"card\" id=\"card" + count + "\">"
+                        //create <h1 data-alt="value of description">fName lName</h1>
+                        appStr = appStr + "<h1 data-alt=\"" + $('textarea.desc').val() + "\"" + ">" + $('input.fName').val() + 
+                                " " + $('input.lName').val() + "</h1>";
+                        //create <p data-alt="Click for Name">Click for Description</p>
+                        appStr = appStr + "<p data-alt=\"Click for Name\">Click for Description</p></button>";
+                        
+                        // debug
+                        console.log("appStr: " + appStr)
+
+                        // append to html of next set of div
+                        $(this).parent().siblings().last().append(appStr).html()
+
+                        // reset input field
+                        manualReset();
+                    }   
+                    event.stopPropagation();
+                })
+
+               $(document).on("click", ".card", function() {
+                    flipCard(this);
+                    event.stopPropagation();
+               })
+
+            });
+        </script>  
+    </head>
+    <body data-counter="0">
+    <div id="wrapper">
+        <div id="main">   
+             <div class="bigbox" id="inputForm">
+                <h1>My Contacts</h1>
+                <div>
+                    <p>First Name</p><input type="text" class="fName">
+                </div>
+                <div>
+                    <p>Last Name</p><input type="text" class="lName">
+                </div>
+                <div>
+                    <p>Description</p><textarea rows="10" cols="50" class="desc"></textarea>
+                </div>
+                <button class="addUser">Add User</button>
+            </div>
+             <div class="bigbox">
+
+
+            </div>  
+        </div>
+    </div>
+    </body>
+</html>

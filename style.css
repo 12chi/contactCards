@@ -1,0 +1,37 @@
+/*CSS reset settings here*/
+*{
+ margin: 0px;
+ padding: 3px;
+ 
+}
+#wrapper{
+ width: 800px;
+ background-color: cornsilk;
+ margin: 15px auto;
+}
+.bigbox {
+    display: inline-block;
+    vertical-align: top;
+    margin: 30px;
+    padding: 10px;
+}
+h1{
+    border-bottom: 1px solid grey;
+    border-top: 1px solid grey;
+}
+p {
+    display: inline-block;
+    text-align: right;
+}
+input text{
+    text-align: left;
+}
+textarea
+{
+    display: block;
+}
+.card {
+    height: 150px;
+    width: 250px;
+    margin-bottom: 5px;
+}    
